@@ -163,6 +163,10 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Waavi\UrlShortener\UrlShortenerServiceProvider::class,
+
+        Mews\Captcha\CaptchaServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -225,6 +229,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'UrlShortener' => Waavi\UrlShortener\Facades\UrlShortener::class,
+
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];
