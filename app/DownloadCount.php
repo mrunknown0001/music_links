@@ -8,6 +8,6 @@ class DownloadCount extends Model
 {
     public function music()
     {
-    	return $this->hasOne('App\Music');
+    	return $this->belongsTo('App\Music');
     }
 }

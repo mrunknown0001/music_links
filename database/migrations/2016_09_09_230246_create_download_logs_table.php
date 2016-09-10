@@ -15,10 +15,10 @@ class CreateDownloadLogsTable extends Migration
     {
         Schema::create('download_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->ipAddress('ip');
+            $table->ipAddress('ip')->nullable();
             $table->integer('music_id')->unsigned();
             $table->foreign('music_id')->references('id')->on('musics')->onDelete('cascade');
-            $table->timestamp('date_time');
+            $table->timestamps();
         });
     }
 

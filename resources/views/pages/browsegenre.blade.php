@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Music Links @endsection
+@section('title') Browse By Genre @endsection
 
 @section('content')
 <div class="container-fluid">
@@ -17,7 +17,7 @@
 			</ul>
 		</section>
 		<div class="col-md-10">
-			<strong>Most Downloaded</strong>
+			<strong>Browse by Genre: {{ $g }} - {{ count($musics) }} {{ count($musics) > 1? 'songs':'song' }}</strong>
 			
 			<table class="table table-hover">
 				<thead>
@@ -30,20 +30,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($musics as $m)
+					@foreach ($musics as $music)
 						<tr>
-							<td>{{ $m->music->title }}</td>
-							<td>{{ $m->music->artist }}</td>
-							<td>{{ $m->music->genre->name }}</td>
-							<td>{{ $m->counts }}</td>
-							<td><a href="{{ route('music_download',$m->music->link->id) }}">Download Link</a></td>
+							<td>{{ $music->title }}</td>
+							<td>{{ $music->artist }}</td>
+							<td>{{ $music->genre->name }}</td>
+							<td>{{ $music->downloadcount->counts }}</td>
+							<td><a href="{{ route('music_download',$music->link->id) }}">Download Link</a></td>
 						</tr>
 					@endforeach
 				</tbody>
 			</table>
-			@if(count($musics) == 0)
+			@if(count($musics) < 1)
 				<strong>There are no available music.</strong>
 			@endif
+
+			{{ $musics->render() }}
+
 		</div>
 	</div>
 

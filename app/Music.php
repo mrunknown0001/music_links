@@ -21,7 +21,7 @@ class Music extends Model
     // Genre of the music
     public function genre()
     {
-    	return $this->hasOne('App\Genre');
+    	return $this->belongsTo('App\Genre');
     }
 
     // Download Log of the music

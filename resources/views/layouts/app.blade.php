@@ -12,7 +12,8 @@
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
 	<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<!-- Google reCAPTCHA
+	<script src='https://www.google.com/recaptcha/api.js'></script> -->
 
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

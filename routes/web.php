@@ -10,7 +10,7 @@
 Route::get('/',[
 	'uses' => 'MusicController@loadHomepageItems',
 	'as' => 'home'
-]);
+	]);
 
 
 // Route Post Result, shows the result of the search
@@ -24,13 +24,49 @@ Route::get('result', function () {
 });
 
 
-// Route to add music/links to the app
-Route::get('add', function () {
-	return view('pages.add');
+// Route to Login Form of the app
+Route::get('L', function () {
+	return "Login Page Here";
 });
 
 
-Route::post('add-music', [
-	'uses' => 'MusicController@addMusic',
-	'as' => 'add_music'
+// Route Request Reset Password
+Route::get('L/pass/reset', function () {
+	return "Password Reset Method Here. Send in email";
+});
+
+
+// Route to get download, add log and count
+Route::get('music-download/{id}', [
+	'uses' => 'MusicController@musicDownload',
+	'as' => 'music_download'
 	]);
+
+
+// Route to browse music by genre
+Route::get('browse/genre/{id}/{genre?}', [
+	'uses' => 'MusicController@browseByGenre',
+	'as' => 'browse_by_genre'
+	]);
+
+
+// Group Route
+Route::group(['prefix' => 'u'], function () {
+
+	// Home Route in group u
+	Route::get('/', function () {
+		return view('pages.u.dashboard');
+	})->name('dashboard');
+
+
+	// Route to add music/links form of the app
+	Route::get('add-music', function () {
+		return view('pages.u.add');
+	})->name('add_music_form');
+
+	// Route to add music
+	Route::post('add-music', [
+		'uses' => 'MusicController@addMusic',
+		'as' => 'add_music'
+		]);
+});
