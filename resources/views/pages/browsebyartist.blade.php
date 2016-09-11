@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Browse By Genre @endsection
+@section('title') Browse By Artist @endsection
 
 @section('content')
 <div class="container-fluid">
@@ -17,7 +17,7 @@
 			</ul>
 		</section>
 		<div class="col-md-10">
-			<strong>Browse by Genre: {{ $g }} - {{ $musics->count() }} of {{ $musics->total() }} {{ count($musics) > 1? 'songs':'song' }}</strong>
+			<strong>Browse by Artist: {{ $artist->name }} - {{ $musics->count() }} of {{ $musics->total() }} {{ count($musics) > 1? 'songs':'song' }}</strong>
 			
 			<table class="table table-hover">
 				<thead>
@@ -49,7 +49,6 @@
 			{{ $musics->render() }}
 		</div>
 	</div>
-
 </div>
 @include('includes.footer')
 @endsection

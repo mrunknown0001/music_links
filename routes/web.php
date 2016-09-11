@@ -43,14 +43,28 @@ Route::get('music-download/{id}', [
 	]);
 
 
-// Route to browse music by genre
-Route::get('browse/genre/{id}/{genre?}', [
-	'uses' => 'MusicController@browseByGenre',
-	'as' => 'browse_by_genre'
-	]);
 
 
-// Group Route
+
+// Group Route browse
+Route::group(['prefix' => 'browse'], function () {
+
+	// Route to browse music by genre
+	Route::get('genre/{id}/{genre?}', [
+		'uses' => 'MusicController@browseByGenre',
+		'as' => 'browse_by_genre'
+		]);
+
+
+	// Route to brose music by artists
+	Route::get('artist/{id}/{name?}', [
+		'uses' => 'MusicController@browseByArtist',
+		'as' => 'browse_by_artist'
+		]);
+});
+
+
+// Group Route u
 Route::group(['prefix' => 'u'], function () {
 
 	// Home Route in group u

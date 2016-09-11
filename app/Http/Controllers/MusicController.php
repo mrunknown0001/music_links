@@ -169,4 +169,18 @@ class MusicController extends Controller
 
     }
 
+
+    // Browse by Artist
+    public function browseByArtist($id = null, $artist = null)
+    {
+        $artist = Artist::find($id);
+
+        $musics = Music::where('artist_id', '=', $artist->id)->paginate(10);
+
+        $genres = Genre::all();
+
+        return view('pages.browsebyartist')->with(['artist' => $artist, 'genres' => $genres, 'musics' => $musics]);
+
+    }
+
 }
