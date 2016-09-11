@@ -18,6 +18,8 @@ use App\DownloadLog;
 
 use Waavi\UrlShortener\Facades\UrlShortener;
 
+use App\Artist;
+
 class MusicController extends Controller
 {
     
@@ -58,10 +60,29 @@ class MusicController extends Controller
             $year = 0;
         }
 
+        $artist_a = Artist::where('name', '=', ucwords($artist))->first();
+
+        if(!empty($artist_a)) {
+            // if existing
+            // Nothing to do here, just get the id of the artist
+            $artist_id = $artist_a->id;
+        }
+        else {
+            // if not exist
+            // add the artist to the artists table
+            $a = new Artist();
+
+            $a->name = ucwords($artist);
+
+            $a->save();
+        }
+
+
+        // Create new instance for Music
     	$music = new Music();
 
     	$music->title = ucwords($title);
-    	$music->artist = ucwords($artist);
+    	$music->artist_id = 1;
     	$music->genre_id = $genre;
     	$music->album = ucwords($album);
     	$music->year = $year;
@@ -71,6 +92,7 @@ class MusicController extends Controller
 	    	$music_id = $music->id;
 
             // Saving to download_counts, set the counter to 0
+            // Create new instance for DownloadCount
             $dl_count = new DownloadCount();
             $dl_count->counts = 0;
             $dl_count->music_id = $music_id;
@@ -82,12 +104,14 @@ class MusicController extends Controller
                 $short_link = UrlShortener::driver('bitly')->shorten($long_link);
             }
             catch (Exception $e) {
+                // Create instance for Music 
                 $m = Music::find($music_id);
                 $m->delete();
 
                 return redirect()->route('add_music_form')->with('error_msg',$e->getMessage());
             }
 	    	
+            // Create new instance for Link
 	    	$link = new Link();
 
 	    	$link->long_link = $long_link;
@@ -118,6 +142,7 @@ class MusicController extends Controller
         $count->save();
 
         // Save in download log
+        // Create new instance for DownloadLog
         $log = new DownloadLog();
 
         $music_id = $link->music->id;
@@ -138,7 +163,7 @@ class MusicController extends Controller
     {
         $genres = Genre::all();
 
-        $musics = Music::where('genre_id', $id)->orderBy('title','asc')->paginate(2);
+        $musics = Music::where('genre_id', $id)->orderBy('title','asc')->paginate(10);
 
         return view('pages.browsegenre')->with(['genres' => $genres, 'musics' => $musics, 'g' => $name]);
 

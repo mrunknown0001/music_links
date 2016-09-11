@@ -17,7 +17,7 @@
 			</ul>
 		</section>
 		<div class="col-md-10">
-			<strong>Browse by Genre: {{ $g }} - {{ count($musics) }} {{ count($musics) > 1? 'songs':'song' }}</strong>
+			<strong>Browse by Genre: {{ $g }} - {{ $musics->count() }} of {{ $musics->total() }} {{ count($musics) > 1? 'songs':'song' }}</strong>
 			
 			<table class="table table-hover">
 				<thead>
@@ -33,10 +33,10 @@
 					@foreach ($musics as $music)
 						<tr>
 							<td>{{ $music->title }}</td>
-							<td>{{ $music->artist }}</td>
-							<td>{{ $music->genre->name }}</td>
+							<td>{{ $music->artist->name }}</td>
+							<td><a href="{{ route('browse_by_genre',[$music->genre->id, $music->genre->name]) }}">{{ $music->genre->name }}</a></td>
 							<td>{{ $music->downloadcount->counts }}</td>
-							<td><a href="{{ route('music_download',$music->link->id) }}">Download Link</a></td>
+							<td><a href="{{ route('music_download',$music->link->id) }}">Download</a></td>
 						</tr>
 					@endforeach
 				</tbody>
@@ -45,8 +45,8 @@
 				<strong>There are no available music.</strong>
 			@endif
 
-			{{ $musics->render() }}
 
+			{{ $musics->render() }}
 		</div>
 	</div>
 

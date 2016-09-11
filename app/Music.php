@@ -29,4 +29,10 @@ class Music extends Model
     {
         return $this->hasMany('App\DownloadLog');
     }
+
+    // 
+    public function artist()
+    {
+        return $this->belongsTo('App\Artist');
+    }
 }

@@ -33,10 +33,10 @@
 					@foreach($musics as $m)
 						<tr>
 							<td>{{ $m->music->title }}</td>
-							<td>{{ $m->music->artist }}</td>
-							<td>{{ $m->music->genre->name }}</td>
+							<td>{{ $m->music->artist->name }}</td>
+							<td><a href="{{ route('browse_by_genre',[$m->music->genre->id, $m->music->genre->name]) }}">{{ $m->music->genre->name }}</a></td>
 							<td>{{ $m->counts }}</td>
-							<td><a href="{{ route('music_download',$m->music->link->id) }}">Download Link</a></td>
+							<td><a href="{{ route('music_download',$m->music->link->id) }}">Download</a></td>
 						</tr>
 					@endforeach
 				</tbody>

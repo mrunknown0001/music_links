@@ -16,13 +16,16 @@ class CreateMusicsTable extends Migration
         Schema::create('musics', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('artist');
+            $table->integer('artist_id')->unsigned();
             $table->string('album')->nullable();
             $table->integer('year')->nullable();
             $table->integer('genre_id')->unsigned();
-            $table->foreign('genre_id')->references('id')->on('genres');
             $table->timestamps();
+
+            $table->foreign('artist_id')->references('id')->on('artists');
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
+
     }
 
     /**
