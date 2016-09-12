@@ -23,6 +23,17 @@ use App\Artist;
 class MusicController extends Controller
 {
     
+    // Search Function artist, album, title
+    public function searchFunction(Request $request)
+    {
+        $this->validate($request, [
+            'search' => 'required|min:2'   // requiring at least 2 character to search
+            ]);
+
+        $keyword = $request['search'];
+    }
+
+
     // Load the list of Genre from database passed to homepage
     // Load Most Downloaded: 8
     public function loadHomepageItems()

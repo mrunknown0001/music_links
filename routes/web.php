@@ -14,9 +14,10 @@ Route::get('/',[
 
 
 // Route Post Result, shows the result of the search
-Route::post('result', function () {
-	return "This the Route Post Search Result.";
-})->name('search_result');
+Route::post('result', [
+	'uses' => 'MusicController@searchFunction',
+	'as' => 'search_result'
+	]);
 
 // Fix routing, redirect to home page
 Route::get('result', function () {
@@ -41,8 +42,6 @@ Route::get('music-download/{id}', [
 	'uses' => 'MusicController@musicDownload',
 	'as' => 'music_download'
 	]);
-
-
 
 
 
