@@ -31,6 +31,13 @@ class MusicController extends Controller
             ]);
 
         $keyword = $request['search'];
+
+        $musics = Music::where('title', 'like', "%$keyword%")->paginate(10);
+        // $artists = Artist::where('name', 'like', "%$keyword%");
+
+        $genres = Genre::all();
+
+        return view('pages.searchresult', ['musics' => $musics, 'genres' => $genres, 'keyword' => $keyword]);
     }
 
 
@@ -186,11 +193,11 @@ class MusicController extends Controller
     {
         $artist = Artist::find($id);
 
-        $musics = Music::where('artist_id', '=', $artist->id)->paginate(10);
+        $musics = Music::where('artist_id', $artist->id)->paginate(10);
 
         $genres = Genre::all();
 
-        return view('pages.browsebyartist')->with(['artist' => $artist, 'genres' => $genres, 'musics' => $musics]);
+        return view('pages.browsebyartist', ['artist' => $artist, 'genres' => $genres, 'musics' => $musics]);
 
     }
 
